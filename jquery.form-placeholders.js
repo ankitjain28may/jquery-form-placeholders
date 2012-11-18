@@ -52,6 +52,21 @@
 				setPlaceholderText(formelement);
 				
 			});
+			
+			// Remove placeholder values on submit
+			plugin.el.bind('submit',function(){
+				$('input[type=text],input[type=email],input[type=password],textarea',$(this)).each(function(){
+					var element = $(this);
+					
+					// Skip fields with no default attribute
+					if(element.data(plugin.settings.placeholderAttribute)=='')
+						return;
+					
+					if(element.val()==element.data(plugin.settings.placeholderAttribute))
+						element.val('');
+				});
+			})
+			
 		}
 
         var setPlaceholderText = function(element) {
